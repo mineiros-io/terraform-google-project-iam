@@ -19,7 +19,7 @@ variable "role" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 variable "members" {
-  description = "(Optional) Identities that will be granted the privilege in role. Policy members must be of the form '<type>:<value>'. Ex. 'user:user1@google.com'."
+  description = "(Optional) Identities that will be granted the privilege in role. Each entry can have one of the following values: 'allUsers', 'allAuthenticatedUsers', 'user:{emailid}', 'serviceAccount:{emailid}', 'group:{emailid}', 'domain:{domain}', 'projectOwner:projectid', 'projectEditor:projectid', 'projectViewer:projectid'."
   type        = set(string)
   default     = []
 }
