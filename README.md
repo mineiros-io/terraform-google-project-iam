@@ -86,7 +86,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   The resource name of the project the policy is attached to. Its format is `projects/{project_id}`.
 
-- **`role`**: **_(Required `string`)_**
+- **`role`**: _(Optional `string`)_
 
   The role that should be applied. Note that custom roles must be of the format `[projects|organizations]/{parent-name}/roles/{role-name}`.
 
