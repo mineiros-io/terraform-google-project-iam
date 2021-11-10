@@ -101,7 +101,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   Whether to exclusively set (authoritative mode) or add (non-authoritative/additive mode) members to the role.
 
-  Default is `true`.
+  Default is `false`.
 
 - **`policy_bindings`**: _(Optional `list(policy_bindings)`)_
 
