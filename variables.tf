@@ -28,7 +28,7 @@ variable "members" {
 variable "authoritative" {
   description = "(Optional) Whether to exclusively set (authoritative mode) or add (non-authoritative/additive mode) members to the role."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "condition" {
