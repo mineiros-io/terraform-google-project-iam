@@ -8,18 +8,19 @@ variable "project" {
   type        = string
 }
 
-variable "role" {
-  description = "(Required) The role that should be applied. Only one google_project_iam_binding can be used per role. Note that custom roles must be of the format organizations/{{org_id}}/roles/{{role_id}}."
-  type        = string
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL VARIABLES
 # These variables have defaults, but may be overridden.
 # ---------------------------------------------------------------------------------------------------------------------
 
+variable "role" {
+  description = "(Optional) The role that should be applied. Only one google_project_iam_binding can be used per role. Note that custom roles must be of the format organizations/{{org_id}}/roles/{{role_id}}."
+  type        = string
+  default     = null
+}
+
 variable "members" {
-  description = "(Optional) Identities that will be granted the privilege in role. Policy members must be of the form '<type>:<value>'. Ex. 'user:user1@google.com'."
+  description = "(Optional) Identities that will be granted the privilege in role. Each entry can have one of the following values: 'user:{emailid}', 'serviceAccount:{emailid}', 'group:{emailid}', 'domain:{domain}'."
   type        = set(string)
   default     = []
 }
@@ -32,6 +33,12 @@ variable "authoritative" {
 
 variable "condition" {
   description = "(Optional) An IAM Condition for a given binding."
+  type        = any
+  default     = null
+}
+
+variable "policy_bindings" {
+  description = "(Optional) A list of IAM policy bindings."
   type        = any
   default     = null
 }
