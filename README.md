@@ -110,7 +110,7 @@ See [variables.tf] and [examples/] for details and use-cases.
   Example
 
   ```hcl
-  role    = "roles/storage.admin"
+  role          = "roles/storage.admin"
   authoritative = true
   condition = {
     title = "no_terraform_state_access"
@@ -129,7 +129,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     - **`title`**: **_(Required `string`)_**
 
-      A title for the expression, i.e. a short string describing its purpose.
+      A title for the expression, i.e., a short string describing its purpose.
 
     - **`description`**: _(Optional `string`)_
 
@@ -140,7 +140,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   A list of IAM policy bindings.
 
-  **You can accidentally lock yourself out of your project using this resource. Deleting a google_project_iam_policy removes access from anyone without organization-level access to the project. Proceed with caution. It's not recommended to use google_project_iam_policy with your provider project to avoid locking yourself out, and it should generally only be used with projects fully managed by Terraform. If you do use this resource, it is recommended to import the policy before applying the change.**
+  **You can accidentally lock yourself out of your project using this resource. Deleting a google_project_iam_policy removes access from anyone without organization-level access to the project. Proceed with caution. It's not recommended to use `google_project_iam_policy` with your provider project to avoid locking yourself out, and it should generally only be used with projects fully managed by Terraform. If you do use this resource, it's recommended to import the policy before applying the change.**
 
   Example
 
