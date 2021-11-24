@@ -103,9 +103,44 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   Default is `false`.
 
+- **`condition`**: _(Optional `object(condition)`)_
+
+  An IAM Condition for the target project IAM binding.
+
+  Example
+
+  ```hcl
+  role          = "roles/storage.admin"
+  authoritative = true
+  condition = {
+    title = "no_terraform_state_access"
+    expression = <<EOT
+      resource.type ==  "storage.googleapis.com/Bucket" &&
+      resource.name != "terraform-state"
+    EOT
+  }
+  ```
+
+    A `condition` object accepts the following fields:
+
+    - **`expression`**: **_(Required `string`)_**
+
+      Textual representation of an expression in Common Expression Language syntax.
+
+    - **`title`**: **_(Required `string`)_**
+
+      A title for the expression, i.e., a short string describing its purpose.
+
+    - **`description`**: _(Optional `string`)_
+
+      An optional description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
+
+
 - **`policy_bindings`**: _(Optional `list(policy_bindings)`)_
 
   A list of IAM policy bindings.
+
+  **You can accidentally lock yourself out of your project using this resource. Deleting a google_project_iam_policy removes access from anyone without organization-level access to the project. Proceed with caution. It's not recommended to use `google_project_iam_policy` with your provider project to avoid locking yourself out, and it should generally only be used with projects fully managed by Terraform. If you do use this resource, it's recommended to import the policy before applying the change.**
 
   Example
 
