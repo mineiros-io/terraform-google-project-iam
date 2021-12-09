@@ -23,6 +23,11 @@ variable "members" {
   description = "(Optional) Identities that will be granted the privilege in role. Each entry can have one of the following values: 'user:{emailid}', 'serviceAccount:{emailid}', 'group:{emailid}', 'domain:{domain}'."
   type        = set(string)
   default     = []
+
+  validation {
+    condition     = alltrue([for m in var.members : can(regex("^(user|serviceAccount|group|domain):(.+)", m))])
+    error_message = "The value must be a non-empty list of strings where each entry is a valid principal type identified with a prefix such as e.g., `user:`, `serviceAccount:`, `group:` or `domain:`."
+  }
 }
 
 variable "authoritative" {
