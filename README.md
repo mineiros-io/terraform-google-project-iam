@@ -36,7 +36,11 @@ secure, and production-grade cloud infrastructure.
 
 A [Terraform] base module for creating a `google_project_iam_*` resources.
 
-It allows authoritative bindings (exclusive setting members), non-authoritative (adding additional members), or policy based IAM management of resource level access.
+It allows authoritative bindings (exclusive setting members),
+non-authoritative (adding additional members),
+or policy based IAM management of resource level access.
+
+Default GCP service accounts are added to specific roles.
 
 ## Getting Started
 
@@ -136,6 +140,19 @@ See [variables.tf] and [examples/] for details and use-cases.
       An optional description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
 
 
+- **`skip_adding_default_service_accounts`**: _(Optional `bool`)_
+
+  Whether to skip adding default GCP Service Accounts to specific roles.
+  Please see links under [External Documentation](#external-documentation) for more information.
+
+  Service Accounts added to non-conditional bindings of `roles/editor`:
+
+  - App Engine default service account (`project-id@appspot.gserviceaccount.com`)
+  - Compute Engine default service account (`project-number-compute@developer.gserviceaccount.com`)
+  - Google APIs Service Agent (`project-number@cloudservices.gserviceaccount.com`)
+
+  Default is `false`.
+
 - **`policy_bindings`**: _(Optional `list(policy_bindings)`)_
 
   A list of IAM policy bindings.
@@ -208,11 +225,13 @@ The following attributes are exported in the outputs of the module:
 
 ### Google Documentation:
 
-  - Project Access Control: <https://cloud.google.com/resource-manager/docs/access-control-proj>
+- Project Access Control: <https://cloud.google.com/resource-manager/docs/access-control-proj>
+- Default service accounts: <https://cloud.google.com/iam/docs/service-accounts#default>
+- Google managed service accounts <https://cloud.google.com/iam/docs/service-accounts#google-managed>
 
 ### Terraform Google Provider Documentation:
 
-  - <https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam>
+- <https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam>
 
 ## Module Versioning
 
