@@ -143,7 +143,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 - **`skip_adding_default_service_accounts`**: _(Optional `bool`)_
 
   Whether to skip adding default GCP Service Accounts to specific roles.
-  Please see links unter [External Documentation](#external-documentation) for more information.
+  Please see links under [External Documentation](#external-documentation) for more information.
 
   Service Accounts added to non-conditional bindings of `roles/editor`:
 
