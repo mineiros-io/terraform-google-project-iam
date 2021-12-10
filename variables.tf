@@ -48,6 +48,12 @@ variable "policy_bindings" {
   default     = null
 }
 
+variable "skip_adding_default_service_accounts" {
+  type        = bool
+  description = "(Optional) Whether to skip adding default GCP Service Accounts to specific roles."
+  default     = false
+}
+
 # ------------------------------------------------------------------------------
 # MODULE CONFIGURATION PARAMETERS
 # These variables are used to configure the module.
