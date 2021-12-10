@@ -4,8 +4,8 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 variable "project" {
-  description = "(Required) The project ID."
   type        = string
+  description = "(Required) The project ID."
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -14,14 +14,14 @@ variable "project" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 variable "role" {
-  description = "(Optional) The role that should be applied. Only one google_project_iam_binding can be used per role. Note that custom roles must be of the format organizations/{{org_id}}/roles/{{role_id}}."
   type        = string
+  description = "(Optional) The role that should be applied. Only one google_project_iam_binding can be used per role. Note that custom roles must be of the format organizations/{{org_id}}/roles/{{role_id}}."
   default     = null
 }
 
 variable "members" {
-  description = "(Optional) Identities that will be granted the privilege in role. Each entry can have one of the following values: 'user:{emailid}', 'serviceAccount:{emailid}', 'group:{emailid}', 'domain:{domain}'."
   type        = set(string)
+  description = "(Optional) Identities that will be granted the privilege in role. Each entry can have one of the following values: 'user:{emailid}', 'serviceAccount:{emailid}', 'group:{emailid}', 'domain:{domain}'."
   default     = []
 
   validation {
@@ -31,20 +31,20 @@ variable "members" {
 }
 
 variable "authoritative" {
-  description = "(Optional) Whether to exclusively set (authoritative mode) or add (non-authoritative/additive mode) members to the role."
   type        = bool
+  description = "(Optional) Whether to exclusively set (authoritative mode) or add (non-authoritative/additive mode) members to the role."
   default     = false
 }
 
 variable "condition" {
-  description = "(Optional) An IAM Condition for a given binding."
   type        = any
+  description = "(Optional) An IAM Condition for a given binding."
   default     = null
 }
 
 variable "policy_bindings" {
-  description = "(Optional) A list of IAM policy bindings."
   type        = any
+  description = "(Optional) A list of IAM policy bindings."
   default     = null
 }
 
