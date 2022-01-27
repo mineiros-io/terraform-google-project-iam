@@ -24,7 +24,7 @@ secure, and production-grade cloud infrastructure.
   - [Top-level Arguments](#top-level-arguments)
     - [Module Configuration](#module-configuration)
     - [Main Resource Configuration](#main-resource-configuration)
-- [Module Attributes Reference](#module-attributes-reference)
+- [Module Outputs](#module-outputs)
 - [External Documentation](#external-documentation)
   - [Google Documentation:](#google-documentation)
   - [Terraform Google Provider Documentation:](#terraform-google-provider-documentation)
@@ -148,9 +148,9 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   Whether to skip adding default GCP Service Accounts to specific roles.
   Please see links under [External Documentation](#external-documentation) for more information.
-  
+
   Service Accounts added to non-conditional bindings of `roles/editor`:
-  
+
   - App Engine default service account (`project-id@appspot.gserviceaccount.com`)
   - Compute Engine default service account (`project-number-compute@developer.gserviceaccount.com`)
   - Google APIs Service Agent (`project-number@cloudservices.gserviceaccount.com`)
@@ -160,7 +160,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 - [**`policy_bindings`**](#var-policy_bindings): *(Optional `list(policy_binding)`)*<a name="var-policy_bindings"></a>
 
   A list of IAM policy bindings.
-  
+
   **You can accidentally lock yourself out of your project using this resource. Deleting a google_project_iam_policy removes access from anyone without organization-level access to the project. Proceed with caution. It's not recommended to use `google_project_iam_policy` with your provider project to avoid locking yourself out, and it should generally only be used with projects fully managed by Terraform. If you do use this resource, it's recommended to import the policy before applying the change.**
 
   Example:
@@ -211,17 +211,18 @@ See [variables.tf] and [examples/] for details and use-cases.
 
       An optional description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
 
-## Module Attributes Reference
+## Module Outputs
 
 The following attributes are exported in the outputs of the module:
 
-- **`module_enabled`**
+- [**`module_enabled`**](#output-module_enabled): *(`bool`)*<a name="output-module_enabled"></a>
 
   Whether this module is enabled.
 
-- **`iam`**
+- [**`iam`**](#output-iam): *(`object(iam)`)*<a name="output-iam"></a>
 
-  All attributes of the created 'iam_binding' or 'iam_member' or 'iam_policy' resource according to the mode.
+  All attributes of the created 'iam_binding' or 'iam_member' or
+  'iam_policy' resource according to the mode.
 
 ## External Documentation
 
