@@ -290,8 +290,8 @@ section {
     output "iam" {
       type        = object(iam)
       description = <<-END
-        All attributes of the created 'iam_binding' or 'iam_member' or
-        'iam_policy' resource according to the mode.
+        All attributes of the created `iam_binding` or `iam_member` or
+        `iam_policy` resource according to the mode.
       END
     }
   }
