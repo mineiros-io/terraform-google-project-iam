@@ -211,6 +211,63 @@ See [variables.tf] and [examples/] for details and use-cases.
 
       An optional description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
 
+- [**`audit_logs`**](#var-audit_logs): *(Optional `object(audit_log)`)*<a name="var-audit_logs"></a>
+
+  List of audit logs settings to be enabled.
+
+  Example:
+
+  ```hcl
+  audit_logs = [{
+    service = "allServices"
+    configs = [{
+      log_type = "DATA_WRITE"
+    }]
+  }]
+  ```
+
+  The `audit_log` object accepts the following attributes:
+
+  - [**`service`**](#attr-audit_logs-service): *(**Required** `string`)*<a name="attr-audit_logs-service"></a>
+
+    Service which will be enabled for audit logging.
+
+    The special value `allServices` covers all services.
+
+    Note that if there are `google_project_iam_audit_config` resources covering both allServices and a specific service then the union of the two AuditConfigs is used for that service: the `log_types` specified in each `audit_log_config` are enabled, and the `exempted_members` in each `audit_log_config` are exempted.
+
+  - [**`configs`**](#attr-audit_logs-configs): *(**Required** `list(audit_log_config)`)*<a name="attr-audit_logs-configs"></a>
+
+    A list of logging configurations for each type of permission.
+
+    Example:
+
+    ```hcl
+    configs = [{
+      log_type = "ADMIN_READ"
+      exempted_members = [
+        "user:nathan@example.com"
+      ]
+    },
+    {
+      log_type = "DATA_WRITE"
+    }]
+    ```
+
+    Each `audit_log_config` object in the list accepts the following attributes:
+
+    - [**`log_type`**](#attr-audit_logs-configs-log_type): *(**Required** `string`)*<a name="attr-audit_logs-configs-log_type"></a>
+
+      Permission type for which logging is to be configured.
+
+      Must be one of `DATA_READ`, `DATA_WRITE`, or `ADMIN_READ`.
+
+    - [**`exempted_users`**](#attr-audit_logs-configs-exempted_users): *(Optional `set(string)`)*<a name="attr-audit_logs-configs-exempted_users"></a>
+
+      Identities that do not cause logging for this type of permission.
+
+      The format is the same as that for `var.members`.
+
 ## Module Outputs
 
 The following attributes are exported in the outputs of the module:
@@ -280,7 +337,7 @@ Run `make help` to see details on each available target.
 ## License
 
 [![license][badge-license]][apache20]
-      
+
 This module is licensed under the Apache License Version 2.0, January 2004.
 Please see [LICENSE] for full details.
 

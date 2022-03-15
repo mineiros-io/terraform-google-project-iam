@@ -270,6 +270,73 @@ section {
             }
           }
         }
+
+        variable "audit_logs" {
+          type = object(audit_log)
+          // TODO: make better description
+          description    = <<-END
+            List of audit logs settings to be enabled.
+          END
+          readme_example = <<-END
+            audit_logs = [{
+              service = "allServices"
+              configs = [{
+                log_type = "DATA_WRITE"
+              }]
+            }]
+          END
+
+          attribute "service" {
+            required = true
+            type     = string
+            // TODO: make easier description
+            description = <<-END
+              Service which will be enabled for audit logging.
+
+              The special value `allServices` covers all services.
+
+              Note that if there are `google_project_iam_audit_config` resources covering both allServices and a specific service then the union of the two AuditConfigs is used for that service: the `log_types` specified in each `audit_log_config` are enabled, and the `exempted_members` in each `audit_log_config` are exempted.
+            END
+          }
+
+          attribute "configs" {
+            required       = true
+            type           = list(audit_log_config)
+            description    = <<-END
+              A list of logging configurations for each type of permission.
+            END
+            readme_example = <<-END
+              configs = [{
+                log_type = "ADMIN_READ"
+                exempted_members = [
+                  "user:nathan@example.com"
+                ]
+              },
+              {
+                log_type = "DATA_WRITE"
+              }]
+            END
+
+            attribute "log_type" {
+              required    = true
+              type        = string
+              description = <<-END
+                Permission type for which logging is to be configured.
+
+                Must be one of `DATA_READ`, `DATA_WRITE`, or `ADMIN_READ`.
+              END
+            }
+
+            attribute "exempted_users" {
+              type        = set(string)
+              description = <<-END
+                Identities that do not cause logging for this type of permission.
+
+                The format is the same as that for `var.members`.
+              END
+            }
+          }
+        }
       }
     }
   }
@@ -379,7 +446,7 @@ section {
     title   = "License"
     content = <<-END
       [![license][badge-license]][apache20]
-      
+
       This module is licensed under the Apache License Version 2.0, January 2004.
       Please see [LICENSE] for full details.
 

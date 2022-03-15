@@ -104,3 +104,20 @@ data "google_iam_policy" "policy" {
     }
   }
 }
+
+resource "google_project_iam_audit_config" "project" {
+  for_each = var.module_enabled ? var.audit_logs : []
+
+  project = local.project_id
+
+  service = each.value.service
+
+  dynamic "audit_log_config" {
+    for_each = each.value.config
+
+    content {
+      log_type = audit_log_config.log_type
+      exempted_users = audit_log_config.exempted_users
+    }
+  }
+}
