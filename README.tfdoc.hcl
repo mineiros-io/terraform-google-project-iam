@@ -271,14 +271,14 @@ section {
           }
         }
 
-        variable "audit_logs" {
+        variable "audit_configs" {
           type = object(audit_log)
           // TODO: make better description
           description    = <<-END
             List of audit logs settings to be enabled.
           END
           readme_example = <<-END
-            audit_logs = [{
+            audit_configs = [{
               service = "allServices"
               configs = [{
                 log_type = "DATA_WRITE"
@@ -299,17 +299,17 @@ section {
             END
           }
 
-          attribute "configs" {
+          attribute "audit_log_configs" {
             required       = true
             type           = list(audit_log_config)
             description    = <<-END
               A list of logging configurations for each type of permission.
             END
             readme_example = <<-END
-              configs = [{
+              audit_log_configs = [{
                 log_type = "ADMIN_READ"
                 exempted_members = [
-                  "user:nathan@example.com"
+                  "user:example@example.com"
                 ]
               },
               {

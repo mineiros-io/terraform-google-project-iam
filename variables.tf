@@ -54,17 +54,10 @@ variable "skip_adding_default_service_accounts" {
   default     = false
 }
 
-variable "audit_logs" {
-  type = list(object({
-    service = string
-    config = object({
-      log_type = string
-      exempted_users = optional(set(string))
-    })
-    // TODO: find better description
-    description = "(Optional) List of configurations for audit logs"
-    default = []
-  }))
+variable "audit_configs" {
+  type        = any
+  description = "(Optional) A list of Audit Logs configurations."
+  default     = []
 }
 
 # ------------------------------------------------------------------------------
