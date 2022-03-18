@@ -262,7 +262,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
       Must be one of `DATA_READ`, `DATA_WRITE`, or `ADMIN_READ`.
 
-    - [**`exempted_users`**](#attr-audit_configs-audit_log_configs-exempted_users): *(Optional `set(string)`)*<a name="attr-audit_configs-audit_log_configs-exempted_users"></a>
+    - [**`exempted_members`**](#attr-audit_configs-audit_log_configs-exempted_members): *(Optional `set(string)`)*<a name="attr-audit_configs-audit_log_configs-exempted_members"></a>
 
       Identities that do not cause logging for this type of permission.
 
