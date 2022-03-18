@@ -211,14 +211,14 @@ See [variables.tf] and [examples/] for details and use-cases.
 
       An optional description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
 
-- [**`audit_logs`**](#var-audit_logs): *(Optional `object(audit_log)`)*<a name="var-audit_logs"></a>
+- [**`audit_configs`**](#var-audit_configs): *(Optional `object(audit_log)`)*<a name="var-audit_configs"></a>
 
   List of audit logs settings to be enabled.
 
   Example:
 
   ```hcl
-  audit_logs = [{
+  audit_configs = [{
     service = "allServices"
     configs = [{
       log_type = "DATA_WRITE"
@@ -228,7 +228,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   The `audit_log` object accepts the following attributes:
 
-  - [**`service`**](#attr-audit_logs-service): *(**Required** `string`)*<a name="attr-audit_logs-service"></a>
+  - [**`service`**](#attr-audit_configs-service): *(**Required** `string`)*<a name="attr-audit_configs-service"></a>
 
     Service which will be enabled for audit logging.
 
@@ -236,17 +236,17 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     Note that if there are `google_project_iam_audit_config` resources covering both allServices and a specific service then the union of the two AuditConfigs is used for that service: the `log_types` specified in each `audit_log_config` are enabled, and the `exempted_members` in each `audit_log_config` are exempted.
 
-  - [**`configs`**](#attr-audit_logs-configs): *(**Required** `list(audit_log_config)`)*<a name="attr-audit_logs-configs"></a>
+  - [**`audit_log_configs`**](#attr-audit_configs-audit_log_configs): *(**Required** `list(audit_log_config)`)*<a name="attr-audit_configs-audit_log_configs"></a>
 
     A list of logging configurations for each type of permission.
 
     Example:
 
     ```hcl
-    configs = [{
+    audit_log_configs = [{
       log_type = "ADMIN_READ"
       exempted_members = [
-        "user:nathan@example.com"
+        "user:example@example.com"
       ]
     },
     {
@@ -256,13 +256,13 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     Each `audit_log_config` object in the list accepts the following attributes:
 
-    - [**`log_type`**](#attr-audit_logs-configs-log_type): *(**Required** `string`)*<a name="attr-audit_logs-configs-log_type"></a>
+    - [**`log_type`**](#attr-audit_configs-audit_log_configs-log_type): *(**Required** `string`)*<a name="attr-audit_configs-audit_log_configs-log_type"></a>
 
       Permission type for which logging is to be configured.
 
       Must be one of `DATA_READ`, `DATA_WRITE`, or `ADMIN_READ`.
 
-    - [**`exempted_users`**](#attr-audit_logs-configs-exempted_users): *(Optional `set(string)`)*<a name="attr-audit_logs-configs-exempted_users"></a>
+    - [**`exempted_users`**](#attr-audit_configs-audit_log_configs-exempted_users): *(Optional `set(string)`)*<a name="attr-audit_configs-audit_log_configs-exempted_users"></a>
 
       Identities that do not cause logging for this type of permission.
 
