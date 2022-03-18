@@ -108,7 +108,7 @@ data "google_iam_policy" "policy" {
 }
 
 resource "google_project_iam_audit_config" "project" {
-  for_each = var.module_enabled ? local.audit_configs_map : []
+  for_each = var.module_enabled ? local.audit_configs_map : {}
 
   project = var.project
 

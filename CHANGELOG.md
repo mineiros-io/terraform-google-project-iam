@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1]
+
+- Add support for `google_project_iam_audit_config` resource
+
 ## [0.1.0]
 
 ### Added
@@ -25,12 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial Implementation
 
-<!-- markdown-link-check-disable -->
-
-[unreleased]: https://github.com/mineiros-io/terraform-google-project-iam/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/mineiros-io/terraform-google-project-iam/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/mineiros-io/terraform-google-project-iam/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/mineiros-io/terraform-google-project-iam/compare/v0.0.2...v0.1.0
-
-<!-- markdown-link-check-disabled -->
-
 [0.0.2]: https://github.com/mineiros-io/terraform-google-project-iam/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/mineiros-io/terraform-google-project-iam/releases/tag/v0.0.1

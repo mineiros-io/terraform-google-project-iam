@@ -67,7 +67,7 @@ section {
 
       ```hcl
       module "terraform-google-project-iam" {
-        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.1.0"
+        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.1.1"
 
         project = "your-project-id"
         role    = "roles/editor"
@@ -325,7 +325,7 @@ section {
               END
             }
 
-            attribute "exempted_users" {
+            attribute "exempted_members" {
               type        = set(string)
               description = <<-END
                 Identities that do not cause logging for this type of permission.
