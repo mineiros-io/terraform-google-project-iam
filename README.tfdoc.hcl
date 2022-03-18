@@ -273,7 +273,6 @@ section {
 
         variable "audit_configs" {
           type = object(audit_log)
-          // TODO: make better description
           description    = <<-END
             List of audit logs settings to be enabled.
           END
@@ -289,7 +288,6 @@ section {
           attribute "service" {
             required = true
             type     = string
-            // TODO: make easier description
             description = <<-END
               Service which will be enabled for audit logging.
 
