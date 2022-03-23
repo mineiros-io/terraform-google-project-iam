@@ -1,44 +1,12 @@
-
-data "google_project" "project" {
-  project_id = var.project
-}
-
-locals {
-  # ensure gcp service account are added to roles/editor on authoritataive bindings
-  # default service accounts https://cloud.google.com/iam/docs/service-accounts#default
-  # google managed service accounts https://cloud.google.com/iam/docs/service-accounts#google-managed
-
-  add_editor_default_service_accounts = (
-    var.role == "roles/editor"
-    && var.authoritative
-    && var.policy_bindings == null
-    && var.condition == null
-    && !var.skip_adding_default_service_accounts
-  )
-
-  project_id     = data.google_project.project.project_id
-  project_number = data.google_project.project.number
-
-  editor_default_members = [
-    "serviceAccount:${local.project_number}-compute@developer.gserviceaccount.com",
-    "serviceAccount:${local.project_number}@cloudservices.gserviceaccount.com",
-    "serviceAccount:${local.project_id}@appspot.gserviceaccount.com",
-  ]
-
-  binding_members = local.add_editor_default_service_accounts ? setunion(var.members, local.editor_default_members) : var.members
-
-  audit_configs_map = { for c in var.audit_configs : c.service => c }
-}
-
 resource "google_project_iam_binding" "project" {
   count = var.module_enabled && var.policy_bindings == null && var.authoritative ? 1 : 0
 
   depends_on = [var.module_depends_on]
 
   project = var.project
-  role    = var.role
 
-  members = local.binding_members
+  role    = var.role
+  members = var.members
 
   dynamic "condition" {
     for_each = var.condition != null ? ["condition"] : []
@@ -88,11 +56,7 @@ data "google_iam_policy" "policy" {
     content {
       role = binding.value.role
 
-      # if editor role and no condition => add editor default service accounts
-      members = (binding.value.role == "editor"
-        && !can(binding.value.condition)
-        && !var.skip_adding_default_service_accounts
-      ) ? setunion(try(binding.value.members, var.members), local.editor_default_members) : try(binding.value.members, var.members)
+      members = try(binding.value.members, var.members)
 
       dynamic "condition" {
         for_each = try([binding.value.condition], [])
@@ -105,6 +69,10 @@ data "google_iam_policy" "policy" {
       }
     }
   }
+}
+
+locals {
+  audit_configs_map = { for c in var.audit_configs : c.service => c }
 }
 
 resource "google_project_iam_audit_config" "project" {
