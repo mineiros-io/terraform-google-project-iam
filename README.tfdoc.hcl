@@ -189,21 +189,6 @@ section {
           }
         }
 
-        variable "skip_adding_default_service_accounts" {
-          type        = bool
-          default     = false
-          description = <<-END
-            Whether to skip adding default GCP Service Accounts to specific roles.
-            Please see links under [External Documentation](#external-documentation) for more information.
-
-            Service Accounts added to non-conditional bindings of `roles/editor`:
-
-            - App Engine default service account (`project-id@appspot.gserviceaccount.com`)
-            - Compute Engine default service account (`project-number-compute@developer.gserviceaccount.com`)
-            - Google APIs Service Agent (`project-number@cloudservices.gserviceaccount.com`)
-          END
-        }
-
         variable "policy_bindings" {
           type           = list(policy_binding)
           description    = <<-END

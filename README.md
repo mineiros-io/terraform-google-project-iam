@@ -144,19 +144,6 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     An optional description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.
 
-- [**`skip_adding_default_service_accounts`**](#var-skip_adding_default_service_accounts): *(Optional `bool`)*<a name="var-skip_adding_default_service_accounts"></a>
-
-  Whether to skip adding default GCP Service Accounts to specific roles.
-  Please see links under [External Documentation](#external-documentation) for more information.
-
-  Service Accounts added to non-conditional bindings of `roles/editor`:
-
-  - App Engine default service account (`project-id@appspot.gserviceaccount.com`)
-  - Compute Engine default service account (`project-number-compute@developer.gserviceaccount.com`)
-  - Google APIs Service Agent (`project-number@cloudservices.gserviceaccount.com`)
-
-  Default is `false`.
-
 - [**`policy_bindings`**](#var-policy_bindings): *(Optional `list(policy_binding)`)*<a name="var-policy_bindings"></a>
 
   A list of IAM policy bindings.

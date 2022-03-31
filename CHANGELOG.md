@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0]
+
+### Removed
+
+- BREAKING CHANGE: Remove support for adding GCP service accounts in `roles/editor` bindings. Those should be passed by the user of the module if the services are actually enabled. There is currently no way to solve this in Terraform conditionally as there is no check if specific services are actually enabled.
+We recommend to use a custom editor role instead of editor role.
+
 ## [0.1.1]
 
 ### Added

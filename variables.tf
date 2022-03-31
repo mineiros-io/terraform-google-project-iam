@@ -48,12 +48,6 @@ variable "policy_bindings" {
   default     = null
 }
 
-variable "skip_adding_default_service_accounts" {
-  type        = bool
-  description = "(Optional) Whether to skip adding default GCP Service Accounts to specific roles."
-  default     = false
-}
-
 variable "audit_configs" {
   type        = any
   description = "(Optional) A list of Audit Logs configurations."
