@@ -51,12 +51,33 @@ Default GCP service accounts are added to specific roles.
 Most basic usage just setting required arguments:
 
 ```hcl
-module "terraform-google-project-iam" {
+module "iam" {
   source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.1.1"
 
   project = "your-project-id"
+
   role    = "roles/editor"
   members = ["user:admin@example.com"]
+}
+
+module "audit" {
+  source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.1.1"
+
+  project = "your-project-id"
+
+  audit_configs = [
+    {
+      service = "allServices"
+      audit_log_configs = [
+        {
+          log_type = "DATA_WRITE"
+        },
+        {
+          log_type = "DATA_READ"
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -205,12 +226,17 @@ See [variables.tf] and [examples/] for details and use-cases.
   Example:
 
   ```hcl
-  audit_configs = [{
-    service = "allServices"
-    configs = [{
-      log_type = "DATA_WRITE"
-    }]
-  }]
+  audit_configs = [
+    {
+      service = "allServices"
+      audit_log_configs = [
+        {
+          log_type         = "DATA_WRITE"
+          exempted_members = ["user:example@example.com"]
+        }
+      ]
+    }
+  ]
   ```
 
   The `audit_log` object accepts the following attributes:
@@ -226,20 +252,6 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`audit_log_configs`**](#attr-audit_configs-audit_log_configs): *(**Required** `list(audit_log_config)`)*<a name="attr-audit_configs-audit_log_configs"></a>
 
     A list of logging configurations for each type of permission.
-
-    Example:
-
-    ```hcl
-    audit_log_configs = [{
-      log_type = "ADMIN_READ"
-      exempted_members = [
-        "user:example@example.com"
-      ]
-    },
-    {
-      log_type = "DATA_WRITE"
-    }]
-    ```
 
     Each `audit_log_config` object in the list accepts the following attributes:
 
