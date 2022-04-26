@@ -52,7 +52,7 @@ Most basic usage just setting required arguments:
 
 ```hcl
 module "iam" {
-  source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.1.1"
+  source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.2.0"
 
   project = "your-project-id"
 
@@ -61,7 +61,7 @@ module "iam" {
 }
 
 module "audit" {
-  source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.1.1"
+  source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.2.0"
 
   project = "your-project-id"
 
