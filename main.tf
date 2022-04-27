@@ -9,12 +9,12 @@ resource "google_project_iam_binding" "project" {
   members = var.members
 
   dynamic "condition" {
-    for_each = var.condition != null ? ["condition"] : []
+    for_each = var.condition != null ? [var.condition] : []
 
     content {
-      title       = var.condition.title
-      description = try(var.condition.description, null)
-      expression  = var.condition.expression
+      expression  = condition.value.expression
+      title       = condition.value.title
+      description = try(condition.value.description, null)
     }
   }
 }
@@ -28,12 +28,12 @@ resource "google_project_iam_member" "project" {
   member = each.value
 
   dynamic "condition" {
-    for_each = var.condition != null ? ["condition"] : []
+    for_each = var.condition != null ? [var.condition] : []
 
     content {
-      title       = var.condition.title
-      description = try(var.condition.description, null)
-      expression  = var.condition.expression
+      expression  = condition.value.expression
+      title       = condition.value.title
+      description = try(condition.value.description, null)
     }
   }
 }

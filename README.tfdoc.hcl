@@ -66,12 +66,33 @@ section {
       Most basic usage just setting required arguments:
 
       ```hcl
-      module "terraform-google-project-iam" {
-        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.1.1"
+      module "iam" {
+        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.2.0"
 
         project = "your-project-id"
+
         role    = "roles/editor"
         members = ["user:admin@example.com"]
+      }
+
+      module "audit" {
+        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.2.0"
+
+        project = "your-project-id"
+
+        audit_configs = [
+          {
+            service = "allServices"
+            audit_log_configs = [
+              {
+                log_type = "DATA_WRITE"
+              },
+              {
+                log_type = "DATA_READ"
+              }
+            ]
+          }
+        ]
       }
       ```
     END
@@ -257,22 +278,27 @@ section {
         }
 
         variable "audit_configs" {
-          type = object(audit_log)
+          type           = object(audit_log)
           description    = <<-END
             List of audit logs settings to be enabled.
           END
           readme_example = <<-END
-            audit_configs = [{
-              service = "allServices"
-              configs = [{
-                log_type = "DATA_WRITE"
-              }]
-            }]
+            audit_configs = [
+              {
+                service = "allServices"
+                audit_log_configs = [
+                  {
+                    log_type         = "DATA_WRITE"
+                    exempted_members = ["user:example@example.com"]
+                  }
+                ]
+              }
+            ]
           END
 
           attribute "service" {
-            required = true
-            type     = string
+            required    = true
+            type        = string
             description = <<-END
               Service which will be enabled for audit logging.
 
@@ -283,21 +309,10 @@ section {
           }
 
           attribute "audit_log_configs" {
-            required       = true
-            type           = list(audit_log_config)
-            description    = <<-END
+            required    = true
+            type        = list(audit_log_config)
+            description = <<-END
               A list of logging configurations for each type of permission.
-            END
-            readme_example = <<-END
-              audit_log_configs = [{
-                log_type = "ADMIN_READ"
-                exempted_members = [
-                  "user:example@example.com"
-                ]
-              },
-              {
-                log_type = "DATA_WRITE"
-              }]
             END
 
             attribute "log_type" {
