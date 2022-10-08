@@ -108,30 +108,6 @@ section {
       title = "Top-level Arguments"
 
       section {
-        title = "Module Configuration"
-
-        variable "module_enabled" {
-          type        = bool
-          default     = true
-          description = <<-END
-            Specifies whether resources in the module will be created.
-          END
-        }
-
-        variable "module_depends_on" {
-          type           = list(dependency)
-          description    = <<-END
-            A list of dependencies. Any object can be _assigned_ to this list to define a hidden external dependency.
-          END
-          readme_example = <<-END
-            module_depends_on = [
-              google_network.network
-            ]
-          END
-        }
-      }
-
-      section {
         title = "Main Resource Configuration"
 
         variable "project" {
@@ -158,7 +134,27 @@ section {
             - `serviceAccount:{emailid}`: An email address that represents a service account. For example, my-other-app@appspot.gserviceaccount.com.
             - `group:{emailid}`: An email address that represents a Google group. For example, admins@example.com.
             - `domain:{domain}`: A G Suite domain (primary, instead of alias) name that represents all the users of that domain. For example, google.com or example.com.
+            - `computed:{identifier}`: An existing key from var.computed_members_map.
           END
+        }
+
+        variable "computed_members_map" {
+          type        = map(string)
+          default     = {}
+          description = <<-END
+             A map of identifiers to identities to be replaced in 'var.members' or in members of `policy_bindings` to handle terraform computed values.
+             The format of each value must satisfy the format as described in `var.members`.
+           END
+          # TODO: terradoc does not allow use of variables in examples
+          # readme_example = <<-END
+          #   members = [
+          #     "user:member@example.com",
+          #     "computed:myserviceaccount",
+          #   ]
+          #   computed_members_map = {
+          #     myserviceaccount = "serviceAccount:${google_service_account.service_account.id}"
+          #   }
+          # END
         }
 
         variable "authoritative" {
@@ -336,6 +332,30 @@ section {
           }
         }
       }
+
+      section {
+        title = "Module Configuration"
+
+        variable "module_enabled" {
+          type        = bool
+          default     = true
+          description = <<-END
+            Specifies whether resources in the module will be created.
+          END
+        }
+
+        variable "module_depends_on" {
+          type           = list(dependency)
+          description    = <<-END
+            A list of dependencies. Any object can be _assigned_ to this list to define a hidden external dependency.
+          END
+          readme_example = <<-END
+            module_depends_on = [
+              google_network.network
+            ]
+          END
+        }
+      }
     }
   }
 
@@ -344,13 +364,6 @@ section {
     content = <<-END
       The following attributes are exported in the outputs of the module:
     END
-
-    output "module_enabled" {
-      type        = bool
-      description = <<-END
-        Whether this module is enabled.
-      END
-    }
 
     output "iam" {
       type        = object(iam)
