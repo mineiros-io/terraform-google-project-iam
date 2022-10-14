@@ -12,8 +12,9 @@ func TestUnitComplete(t *testing.T) {
 
 	// only if the environment variables are set to non-empty they will be passed to terraform
 	vars := map[string]interface{}{
-		"gcp_project":    os.Getenv("TEST_GCP_PROJECT"),
-		"gcp_org_domain": os.Getenv("TEST_GCP_ORG_DOMAIN"),
+		"gcp_project":         os.Getenv("TEST_GCP_PROJECT"),
+		"gcp_org_domain":      os.Getenv("TEST_GCP_ORG_DOMAIN"),
+		"gcp_billing_account": os.Getenv("TEST_GCP_BILLING_ACCOUNT"),
 	}
 
 	for key, value := range vars {
