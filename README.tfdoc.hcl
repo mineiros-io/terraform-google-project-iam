@@ -67,7 +67,7 @@ section {
 
       ```hcl
       module "iam" {
-        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.2.0"
+        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.3.0"
 
         project = "your-project-id"
 
@@ -76,7 +76,7 @@ section {
       }
 
       module "audit" {
-        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.2.0"
+        source = "github.com/mineiros-io/terraform-google-project-iam.git?ref=v0.3.0"
 
         project = "your-project-id"
 
