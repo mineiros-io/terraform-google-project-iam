@@ -42,6 +42,11 @@ resource "google_project_iam_member" "member" {
       description = try(condition.value.description, null)
     }
   }
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
 }
 
 resource "google_project_iam_policy" "policy" {
