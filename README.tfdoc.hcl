@@ -135,6 +135,8 @@ section {
             - `group:{emailid}`: An email address that represents a Google group. For example, admins@example.com.
             - `domain:{domain}`: A G Suite domain (primary, instead of alias) name that represents all the users of that domain. For example, google.com or example.com.
             - `computed:{identifier}`: An existing key from var.computed_members_map.
+            - `principal:{identifier}`: A Google principal identifier.
+            - `principalSet:{identifier}`: A Google principal set identifier.
           END
         }
 
